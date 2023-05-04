@@ -35,9 +35,4 @@ public class SaOAuth2TemplateImpl extends SaOAuth2Template {
         return "gr_SwoIN0MC1ewxHX_vfCW3BothWDZMMtx__";
     }
 
-    @Override
-    public String randomAccessToken(String clientId, Object loginId, String scope) {
-        String tokenValue = StpUtil.createLoginSession(loginId);
-        return tokenValue;
-    }
 }

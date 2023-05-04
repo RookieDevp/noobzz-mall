@@ -9,9 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>noobzz-mall-auth</artifactId>
+    <artifactId>noobzz-mall-user</artifactId>
 
     <dependencies>
+
+        <dependency>
+            <groupId>cn.noobzz</groupId>
+            <artifactId>noobzz-mall-common-core</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>cn.noobzz</groupId>
@@ -21,16 +26,6 @@
         <dependency>
             <groupId>cn.noobzz</groupId>
             <artifactId>noobzz-mall-common-redis</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.noobzz</groupId>
-            <artifactId>noobzz-mall-common-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.noobzz</groupId>
-            <artifactId>noobzz-mall-user</artifactId>
         </dependency>
 
     </dependencies>
