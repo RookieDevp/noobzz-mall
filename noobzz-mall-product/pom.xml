@@ -11,5 +11,23 @@
 
     <artifactId>noobzz-mall-product</artifactId>
 
+    <dependencies>
+
+        <dependency>
+            <groupId>cn.noobzz</groupId>
+            <artifactId>noobzz-mall-common-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.noobzz</groupId>
+            <artifactId>noobzz-mall-common-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.noobzz</groupId>
+            <artifactId>noobzz-mall-common-redis</artifactId>
+        </dependency>
+
+    </dependencies>
 
 </project>
