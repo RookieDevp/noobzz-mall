@@ -1,6 +1,9 @@
 package cn.noobzz.mall.core.domain;
 
 import cn.noobzz.mall.core.base.BaseDomain;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +24,7 @@ public class ReceiveAddress extends BaseDomain
     private static final long serialVersionUID = 1L;
 
     /** 地址ID */
+    @TableId(type = IdType.AUTO)
     private Long addressId;
     /** 用户ID */
     private Long userId;

@@ -1,6 +1,9 @@
 package cn.noobzz.mall.core.domain;
 
 import cn.noobzz.mall.core.base.BaseDomain;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,11 +27,14 @@ public class Order extends BaseDomain
     private static final long serialVersionUID = 1L;
 
     /** 订单ID */
+    @TableId(type = IdType.AUTO)
     private Long orderId;
     /** 订单编号 */
     private String orderSn;
     /** 用户ID */
     private Long userId;
+
+    private Long skuId;
     /** 订单总额 */
     private BigDecimal totalAmount;
     /** 支付方式 */
