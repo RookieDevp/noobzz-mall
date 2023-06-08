@@ -28,13 +28,16 @@ spring:
       eager: true
       transport:
         # 控制台地址
-        dashboard: 127.0.0.1:8718
+        dashboard: 127.0.0.1:8080
       # nacos配置持久化
       datasource:
         ds1:
           nacos:
+            namespace: ${spring.cloud.nacos.discovery.namespace}
+            username: nacos
+            password: nacos@2023
             server-addr: 175.178.240.180:8848
-            dataId: sentinel-noobzz-gateway
+            dataId: ${spring.application.name}-flow-rules
             groupId: DEFAULT_GROUP
             data-type: json
             rule-type: flow

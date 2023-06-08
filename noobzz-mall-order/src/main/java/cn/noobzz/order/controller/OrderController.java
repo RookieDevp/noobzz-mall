@@ -1,7 +1,9 @@
 package cn.noobzz.order.controller;
 
-import java.util.List;
 import java.util.Arrays;
+
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,12 +20,13 @@ import cn.noobzz.mall.core.base.Result;
 
 /**
  * 订单信息Controller
- * 
+ *
  * @author ZZJ
  * @date 2023-05-13 01:03:54
  */
 @RestController
 @RequestMapping("/order")
+@Slf4j
 public class OrderController extends BaseController
 {
     @Autowired
@@ -51,9 +54,11 @@ public class OrderController extends BaseController
      * 新增订单信息
      */
     @PostMapping
+    @ApiOperation(value = "创建订单")
     public Result add(@RequestBody Order order)
     {
-        return toAjax(orderService.save(order));
+
+        return toAjax(orderService.saveOrder(order));
     }
 
     /**

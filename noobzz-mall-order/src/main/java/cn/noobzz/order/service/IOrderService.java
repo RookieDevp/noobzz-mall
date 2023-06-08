@@ -11,4 +11,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IOrderService extends IService<Order> {
 
+    int saveOrder(Order order);
 }

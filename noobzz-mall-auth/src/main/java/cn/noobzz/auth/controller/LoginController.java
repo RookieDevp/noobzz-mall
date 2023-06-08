@@ -37,7 +37,7 @@ public class LoginController extends BaseController {
             log.info("{}:{}",username,password);
             SysUser sysUser = sysUserMapper.selectOne(eq);
             if (Objects.isNull(sysUser)){
-                return error("登录失败");
+                return error("登录失败，用户名或密码错误");
             }else {
                 StpUtil.login(sysUser.getUserId());
                 SaTokenInfo tokenInfo = StpUtil.getTokenInfo();

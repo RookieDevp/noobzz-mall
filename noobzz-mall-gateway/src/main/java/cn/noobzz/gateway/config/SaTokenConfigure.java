@@ -22,8 +22,7 @@ public class SaTokenConfigure {
             "/favicon.ico"
             ,"/auth/oauth2/**"
             ,"/doc.html"
-            ,"/auth/v2/api-docs"
-            ,"/user/v2/api-docs"
+            ,"/**/v2/api-docs"
             ,"/swagger-resources/**"
             ,"/user/user/register");
 

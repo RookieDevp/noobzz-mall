@@ -1,8 +1,12 @@
 package cn.noobzz.mall.core.base;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.http.HttpStatus;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -179,6 +183,10 @@ public class Result extends HashMap<String, Object>
     {
         super.put(key, value);
         return this;
+    }
+
+    public <T> T getData(Class<T> objectClass){
+        return BeanUtil.toBean(this.get(DATA_TAG), objectClass);
     }
 }
 

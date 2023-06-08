@@ -1,6 +1,9 @@
 package cn.noobzz.mall.core.domain;
 
 import cn.noobzz.mall.core.base.BaseDomain;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,8 +18,8 @@ import lombok.ToString;
 @Data
 @ToString
 @NoArgsConstructor
-@TableName("cms_cart")
-public class Cart extends BaseDomain
+@TableName("cms_cart_user")
+public class Cart
 {
     private static final long serialVersionUID = 1L;
 
@@ -24,10 +27,5 @@ public class Cart extends BaseDomain
     private Long cartId;
     /** 用户ID */
     private Long userId;
-    /** 规格ID */
-    private Long skuId;
-    /** 数量 */
-    private Long count;
-    /** 购选状态 */
-    private Integer selectd;
+
 }
