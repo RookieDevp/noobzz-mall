@@ -18,13 +18,14 @@ import java.util.Objects;
 
 /**
  * @author: ZZJ
- * @date: 2023/06/07
+ * @date: 2023/06/10
  * @desc:
  */
-@RabbitListener(queues = "mall.order.cancel.queue")
-@Component
 @Slf4j
-public class OrderQueueHandler {
+@Component
+@RabbitListener(queues = "mall.order.submit.queue")
+public class OrderSubmitHandler {
+
     @Autowired
     private OrderMapper orderMapper;
 
@@ -33,12 +34,12 @@ public class OrderQueueHandler {
     public void cancelOrder(String data, Message message, Channel channel) throws IOException {
         //  如果手动ACK,消息会被监听消费,但是消息在队列中依旧存在,如果 未配置 acknowledge-mode 默认是会在消费完毕后自动ACK掉
         final long deliveryTag = message.getMessageProperties().getDeliveryTag();
-        log.info("取消订单SN:{}-时间{}",data,new Date());
+        log.info("支付订单SN:{}-时间{}",data,new Date());
         Order order = orderMapper.selectOne(new QueryWrapper<Order>().eq("order_sn",data));
-        if (Objects.nonNull(order) && "0".equals(order.getOrderStatus())){
-            order.setStatus("1");
+        if (Objects.nonNull(order) && "0".equals(order.getStatus())){
+            order.setOrderStatus("1");
             orderMapper.updateById(order);
-            log.info("支付订单SN:{}取消成功！！！-时间{}",data,new Date());
+            log.info("支付订单SN:{}更新成功！！！-时间{}",data,new Date());
         }
         channel.basicAck(deliveryTag, false);
     }
