@@ -41,7 +41,7 @@ public class Sku extends BaseDomain
     /** 价格 */
     private BigDecimal price;
     /** 销量 */
-    private String saleCount;
+    private Long saleCount;
     /** 规格图片 */
     private String skuImg;
 }

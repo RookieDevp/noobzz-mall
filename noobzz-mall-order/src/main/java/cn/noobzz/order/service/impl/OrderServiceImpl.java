@@ -6,10 +6,12 @@ import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
 import cn.noobzz.common.redis.constants.RedisConstant;
 import cn.noobzz.common.redis.service.RedisService;
-import cn.noobzz.mall.core.base.Result;
 import cn.noobzz.mall.core.constants.OrderConstant;
 import cn.noobzz.mall.core.domain.Sku;
+import cn.noobzz.mall.core.domain.Stock;
 import cn.noobzz.mall.core.feign.SkuFeignService;
+import cn.noobzz.mall.core.feign.StockeignService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,6 @@ import cn.noobzz.order.service.IOrderService;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -44,6 +45,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private OrderMapper orderMapper;
 
     @Autowired
+    private StockeignService stockeignService;
+
+    @Autowired
     private RabbitTemplate rabbitTemplate;
 
     @Override
@@ -59,7 +63,18 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         Sku sku = skuFeignService.getInfo(order.getSkuId()).getData(Sku.class);
         order.setTotalAmount(sku.getPrice());
         order.setPayAmount(sku.getPrice());
-        int insert = orderMapper.insert(order);
+        Stock stock1 = new Stock();
+        stock1.setSkuId(sku.getSkuId());
+        Stock stockData = stockeignService.list(stock1).getData(Stock.class);
+        int insert = 0;
+        Long stock = stockData.getStock();
+        //todo 锁定库存 redis分布式锁
+        if (stock > 0) {
+            insert = orderMapper.insert(order);
+            stockData.setStock(stock - 1L);
+            sku.setSaleCount(sku.getSaleCount()+1L);
+            stockeignService.edit(stockData);
+        }
         if (insert > 0){
             redisService.setCacheObject(String.format(RedisConstant.ORDER_SN_FORMAT_STRING,orderSn),orderSn,6L, TimeUnit.HOURS);
         }

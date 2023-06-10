@@ -2,6 +2,9 @@ package cn.noobzz.product.controller;
 
 import java.util.List;
 import java.util.Arrays;
+
+import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,7 +38,7 @@ public class StockController extends BaseController
     @GetMapping("/list")
     public Result list(Stock stock)
     {
-       return toAjax( stockService.list());
+       return toAjax( stockService.list(new QueryWrapper<Stock>().allEq(BeanUtil.beanToMap(stock,true,true))));
     }
 
     /**
